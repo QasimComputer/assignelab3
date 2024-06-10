@@ -1,0 +1,61 @@
+// Sample CSV data
+const csvData = `ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor’s Assistant,26`;
+
+// Split the CSV data into rows
+const rows = csvData.split('\n');
+
+// Extract headings and split them into an array
+const headings = rows[0].split(',');
+
+// Initialize a two-dimensional array to store the results
+const results = [];
+
+// Push headings to the results array
+results.push(headings);
+
+// Determine the number of columns based on the number of headings
+const numColumns = headings.length;
+
+// Iterate over the remaining rows
+for (let i = 1; i < rows.length; i++) {
+    // Split the row into an array of values
+    const values = rows[i].split(',');
+
+    // Ensure the row has the same number of columns as the headings
+    if (values.length === numColumns) {
+        // Push the values array to the results array
+        results.push(values);
+    } else {
+        console.error(`Row ${i} has a different number of columns than the headings.`);
+    }
+}
+
+// Cache the two-dimensional array for later use
+const cachedResults = results;
+
+// Log the results
+console.log(results);
+
+// Assuming 'results' is the two-dimensional array from Part 2
+
+// Initialize an array to store the transformed objects
+const transformedData = [];
+
+// Iterate over the rows starting from index 1 (skipping the headings row)
+for (let i = 1; i < results.length; i++) {
+    const rowData = results[i]; // Get the current row data
+    const obj = {}; // Initialize an object to store transformed data for the current row
+
+    // Iterate over the columns of the current row
+    for (let j = 0; j < rowData.length; j++) {
+        const key = results[0][j].toLowerCase(); // Get the lowercase heading for the current column
+        const value = rowData[j]; // Get the value from the current column
+        obj[key] = value; // Assign the value to the corresponding key in the object
+    }
+
+    // Push the transformed object to the array
+    transformedData.push(obj);
+}
+
+// Log the transformed data
+console.log(transformedData);
